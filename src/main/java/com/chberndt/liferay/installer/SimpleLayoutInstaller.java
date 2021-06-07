@@ -39,7 +39,7 @@ public class SimpleLayoutInstaller {
 
 		_log.info("createLayout()");
 
-		// TODO: Retrieve the intended scope
+		// TODO: Retrieve the target scope
 
 		long groupId = 20123;
 
@@ -56,7 +56,7 @@ public class SimpleLayoutInstaller {
 		nameMap.put(
 			LocaleUtil.getSiteDefault(), "Widget Page From Blogs Template");
 
-		// TODO: Retrieve the templates layoutPageTemplateEntryId
+		// TODO: Retrieve the template's layoutPageTemplateEntryId
 
 		long layoutPageTemplateEntryId = 34638;
 

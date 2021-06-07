@@ -5,6 +5,7 @@ import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServ
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutPrototype;
 import com.liferay.portal.kernel.model.User;
@@ -14,6 +15,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.sites.kernel.util.SitesUtil;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -58,6 +60,8 @@ public class SimpleLayoutInstaller {
 
 		long layoutPageTemplateEntryId = 34638;
 
+		Layout layout = null;
+
 		try {
 			LayoutPageTemplateEntry layoutPageTemplateEntry =
 				_layoutPageTemplateEntryLocalService.
@@ -73,7 +77,7 @@ public class SimpleLayoutInstaller {
 				serviceContext.setAttribute(
 					"layoutPrototypeUuid", layoutPrototype.getUuid());
 
-				_layoutLocalService.addLayout(
+				layout = _layoutLocalService.addLayout(
 					serviceContext.getUserId(), groupId, privateLayout,
 					parentLayoutId, nameMap, new HashMap<>(), new HashMap<>(),
 					new HashMap<>(), new HashMap<>(),
@@ -82,8 +86,7 @@ public class SimpleLayoutInstaller {
 
 				// Force propagation from page template to page. See LPS-48430.
 
-				// SitesUtil.mergeLayoutPrototypeLayout(layout.getGroup(), layout);
-
+				SitesUtil.mergeLayoutPrototypeLayout(layout.getGroup(), layout);
 			}
 			else {
 				_layoutLocalService.addLayout(
